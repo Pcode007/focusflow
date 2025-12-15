@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FocusFlow</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header>
+  <h1>FocusFlow</h1>
+</header>
+
+<main>
+
+  <section id="tasks">
+    <h2>Tasks</h2>
+    <form id="task-form">
+      <input type="text" id="task-input" placeholder="Enter task" required>
+      <button type="submit">Add</button>
+    </form>
+    <ul id="task-list"></ul>
+  </section>
+
+  <section id="session">
+    <h2>Study Session</h2>
+    <button id="start-session">Start</button>
+    <button id="stop-session">Stop</button>
+    <p id="timer">00:00</p>
+  </section>
+
+  <section id="insights">
+    <h2>Insights</h2>
+    <div id="charts"></div>
+  </section>
+
+  <section id="chatbot">
+    <h2>Study Assistant</h2>
+    <input id="chat-input" placeholder="Ask a question...">
+    <button id="chat-send">Send</button>
+    <div id="chat-output"></div>
+  </section>
+
+</main>
+
+<script defer src="js/main.js"></script>
+
+</body>
+</html>
