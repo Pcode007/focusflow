@@ -21,3 +21,8 @@ section {
   padding: 1rem;
   border-radius: 6px;
 }
+
+li {
+  padding: 0.5rem;
+  border-bottom: 1px solid #eee;
+}
