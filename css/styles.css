@@ -26,3 +26,8 @@ li {
   padding: 0.5rem;
   border-bottom: 1px solid #eee;
 }
+
+.Done {
+    text-decoration: line-through;
+    color: gray;
+}

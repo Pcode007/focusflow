@@ -11,7 +11,10 @@ taskForm.addEventListener("submit",function (event) {
 
     if(taskText === "") return;
 
-    tasks.push(taskText);
+    tasks.push({
+        text : taskText,
+        comp : false
+    });
     renderTasks();
 
     taskInput.value = "";
@@ -22,13 +25,23 @@ function renderTasks(){
     
     tasks.forEach(function(task,index){
         const li = document.createElement("li");
-        li.textContent = task;
+        li.textContent = task.text;
+
+        if(task.comp){
+            li.classList.add("Done");
+        }
+
+        li.addEventListener("click",function(){
+            task.comp = !task.comp;
+            renderTasks();
+        })
 
         const btn = document.createElement("button");
         btn.textContent="❌";
         btn.style.marginLeft = "10px";
 
-        btn.addEventListener("click",function(){
+        btn.addEventListener("click",function(event){
+            event.stopPropagation();
             tasks.splice(index,1);
             renderTasks();
         });
@@ -37,3 +50,4 @@ function renderTasks(){
         taskList.appendChild(li);
     });
 }
+
