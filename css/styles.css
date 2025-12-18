@@ -27,7 +27,14 @@ li {
   border-bottom: 1px solid #eee;
 }
 
-.Done {
+.completed {
     text-decoration: line-through;
     color: gray;
+}
+
+#filters{
+  margin-top: 20px;
+  margin-left: 80px;
+  gap: 20px;
+  display:flex;
 }

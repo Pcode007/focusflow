@@ -1,39 +1,22 @@
-const taskForm = document.getElementById("task-form");
-const taskInput = document.getElementById("task-input");
-const taskList = document.getElementById("task-list");
-
-let tasks=[];
-
-taskForm.addEventListener("submit",function (event) {
-    event.preventDefault();
-
-    const taskText = taskInput.value.trim();
-
-    if(taskText === "") return;
-
-    tasks.push({
-        text : taskText,
-        comp : false
-    });
-    saveTasks();
-    renderTasks();
-
-    taskInput.value = "";
-});
-
-loadTasks();
-renderTasks();
-
-
 function renderTasks(){
     taskList.innerHTML = "";
+
+    let filteredTasks = tasks;
     
-    tasks.forEach(function(task,index){
+    if(currentFilter === "pending"){
+        filteredTasks = tasks.filter(task => !task.comp);
+    }
+
+    if(currentFilter === "completed"){
+        filteredTasks = tasks.filter(task => task.comp);
+    }
+
+    filteredTasks.forEach(function(task){
         const li = document.createElement("li");
         li.textContent = task.text;
 
         if(task.comp){
-            li.classList.add("Done");
+            li.classList.add("completed");
         }
 
         li.addEventListener("click",function(){
@@ -44,8 +27,9 @@ function renderTasks(){
 
         const btn = document.createElement("button");
         btn.textContent="❌";
-        btn.style.marginLeft = "10px";
+        btn.style.marginLeft = "20px";
 
+        const index = tasks.indexOf(task);
         btn.addEventListener("click",function(event){
             event.stopPropagation();
             tasks.splice(index,1);
@@ -68,3 +52,40 @@ function loadTasks(){
         tasks=JSON.parse(storedTasks);
     }
 }
+
+const taskForm = document.getElementById("task-form");
+const taskInput = document.getElementById("task-input");
+const taskList = document.getElementById("task-list");
+
+let tasks=[];
+let currentFilter = "all";
+
+taskForm.addEventListener("submit",function (event) {
+    event.preventDefault();
+
+    const taskText = taskInput.value.trim();
+
+    if(taskText === "") return;
+
+    tasks.push({
+        text : taskText,
+        comp : false
+    });
+    saveTasks();
+    renderTasks();
+
+    taskInput.value = "";
+});
+
+loadTasks();
+renderTasks();
+
+const filterButtons = document.querySelectorAll("#filters button");
+
+filterButtons.forEach(function (btn){
+    btn.addEventListener("click",function(){
+        currentFilter = btn.dataset.filter;
+        renderTasks();
+    });
+});
+
