@@ -15,10 +15,15 @@ taskForm.addEventListener("submit",function (event) {
         text : taskText,
         comp : false
     });
+    saveTasks();
     renderTasks();
 
     taskInput.value = "";
 });
+
+loadTasks();
+renderTasks();
+
 
 function renderTasks(){
     taskList.innerHTML = "";
@@ -33,6 +38,7 @@ function renderTasks(){
 
         li.addEventListener("click",function(){
             task.comp = !task.comp;
+            saveTasks();
             renderTasks();
         })
 
@@ -43,6 +49,7 @@ function renderTasks(){
         btn.addEventListener("click",function(event){
             event.stopPropagation();
             tasks.splice(index,1);
+            saveTasks();
             renderTasks();
         });
         
@@ -51,3 +58,13 @@ function renderTasks(){
     });
 }
 
+function saveTasks(){
+    localStorage.setItem("tasks",JSON.stringify(tasks));
+}
+
+function loadTasks(){
+    const storedTasks=localStorage.getItem("tasks");
+    if(storedTasks){
+        tasks=JSON.parse(storedTasks);
+    }
+}
